@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EkDwar – One Window for Every Student Scheme</title>
+<style>
+:root{--bg:#f1f5f9;--sf:#fff;--tx:#0f2a3d;--mu:#64748b;--bd:#e2e8f0;--nv:#0b3954;--bl:#1d4ed8;--tl:#0d9488;--tint:#e6f6f6;--ok:#15803d;--wn:#b45309;--er:#b91c1c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1722;--sf:#122434;--tx:#e6eef5;--mu:#94a3b8;--bd:#24394d;--tint:#0f3a40;--bl:#60a5fa;--tl:#2dd4bf;--ok:#4ade80;--wn:#fbbf24;--er:#f87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1722;--sf:#122434;--tx:#e6eef5;--mu:#94a3b8;--bd:#24394d;--tint:#0f3a40;--bl:#60a5fa;--tl:#2dd4bf;--ok:#4ade80;--wn:#fbbf24;--er:#f87171;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3,h4{margin:0 0 8px;color:var(--tx)}.mu{color:var(--mu)}.wrap{max-width:1120px;margin:0 auto;padding:14px}
+.top{background:var(--nv);color:#fff;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 16px}
+.top b{font-size:18px}.demo{background:#f59e0b;color:#2b1a00;font-weight:700;border-radius:99px;padding:2px 10px;font-size:12px}
+.sp{flex:1}.top button{background:transparent;color:#fff;border:1px solid #ffffff55;border-radius:6px;padding:4px 10px;cursor:pointer}
+.top button.on{background:#ffffff26}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}.k{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:12px}
+.k div{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:10px}.k b{display:block;font-size:24px;color:var(--bl)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--bd);margin-bottom:12px}
+.tabs button{background:none;border:0;padding:8px 12px;cursor:pointer;color:var(--mu);font:inherit;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabs button.on{color:var(--bl);border-color:var(--bl);font-weight:700}
+.b{background:var(--bl);color:#fff;border:0;border-radius:7px;padding:7px 12px;cursor:pointer;font:inherit;font-weight:600}
+.b.s{background:var(--sf);color:var(--bl);border:1px solid var(--bl)}.b.r{background:var(--er)}.b.t{background:var(--tl);color:#04211e}.b:disabled{opacity:.45;cursor:not-allowed}
+.b:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--tl);outline-offset:1px}
+input,select{font:inherit;padding:7px 9px;border:1px solid var(--bd);border-radius:7px;background:var(--sf);color:var(--tx);max-width:100%}
+label{display:block;font-weight:600;margin:8px 0 3px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{display:inline-block;border-radius:99px;padding:1px 9px;font-size:12px;font-weight:700;background:var(--bd);color:var(--tx)}
+.c-elig,.c-ok{background:#dcfce7;color:#166534}.c-rev,.c-wn{background:#fef3c7;color:#92400e}.c-no,.c-er{background:#fee2e2;color:#991b1b}.c-bl{background:#dbeafe;color:#1e40af}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--bd);vertical-align:top}th{color:var(--mu);font-weight:600;font-size:13px}
+.trk{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}.trk span{font-size:12px;padding:2px 8px;border-radius:6px;background:var(--bd);color:var(--mu)}.trk span.on{background:var(--tl);color:#04211e;font-weight:700}
+.bar{display:flex;align-items:center;gap:8px;margin:4px 0}.bar i{display:block;height:14px;background:var(--bl);border-radius:4px;min-width:3px}.bar span:first-child{width:130px;font-size:13px}
+.lg{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:start;padding-top:28px}
+.hero h1{font-size:40px;color:var(--nv)}@media(prefers-color-scheme:dark){.hero h1{color:var(--tl)}}.tag{font-size:19px;font-weight:600}
+.roles{display:flex;gap:6px;flex-wrap:wrap}.roles .b{background:var(--sf);color:var(--bl);border:1px solid var(--bl)}.roles .b.on{background:var(--bl);color:#fff}
+.n{border-left:4px solid var(--bd);padding:6px 10px;margin:6px 0;background:var(--sf)}.n.u{border-color:var(--tl);font-weight:600}
+#toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--nv);color:#fff;padding:9px 16px;border-radius:8px;display:none;z-index:9;max-width:90%}
+.qr{display:inline-block;background:#fff;padding:8px;border-radius:8px}details summary{cursor:pointer;color:var(--bl)}small{color:var(--mu)}
+</style></head><body><div id="app"></div><div id="toast" role="status"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),h=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const T={dash:['Dashboard','ડેશબોર્ડ'],prof:['Profile','પ્રોફાઇલ'],apps:['Applications','અરજીઓ'],cyc:['Bicycle','સાયકલ'],alerts:['Alerts','સૂચનાઓ'],out:['Logout','લૉગ આઉટ'],chk:['Check My Eligibility','મારી યોગ્યતા તપાસો'],apply:['Apply','અરજી કરો'],track:['Track','ટ્રૅક કરો'],elig:['Eligible','યોગ્ય'],rev:['Under Review','સમીક્ષા હેઠળ'],no:['Not Eligible','અયોગ્ય'],tag:['One Student. One Profile. One Window. Every Eligible Benefit.','એક વિદ્યાર્થી. એક પ્રોફાઇલ. એક બારી. દરેક યોગ્ય લાભ.'],sch:['Schemes','યોજનાઓ'],ava:['Available schemes','ઉપલબ્ધ યોજનાઓ'],sub:['Applications submitted','સબમિટ થયેલ અરજીઓ'],pen:['Under review','સમીક્ષા હેઠળ'],ben:['Benefits received','મળેલા લાભ'],act:['Pending actions','બાકી કાર્યો'],why:['Why?','કેમ?'],save:['Save and re-check','સાચવો અને ફરી તપાસો'],welcome:['Welcome','સ્વાગત છે'],Review:['Review','સમીક્ષા'],Students:['Students','વિદ્યાર્થીઓ'],Bicycles:['Bicycles','સાયકલ'],Queue:['Queue','કતાર'],Payments:['Payments','ચુકવણી'],Stats:['Stats','આંકડા'],Audit:['Audit log','ઓડિટ લૉગ'],Deliveries:['Deliveries','ડિલિવરી'],Overview:['Overview','ઝલક'],Rules:['Rules','નિયમો']};
+let L='en';const t=k=>T[k]?T[k][L=='gu'?1:0]:k;
+const SCH=[
+{id:'NL',n:'Namo Lakshmi Yojana',d:'Support for girl students in Classes 9–12',amt:10000,r:{g:'F',c:[9,12],inc:600000,att:75}},
+{id:'NSV',n:'Namo Saraswati Vigyan Sadhna',d:'Aid for science-stream students, Classes 11–12',amt:10000,r:{c:[11,12],sci:1,mk:50}},
+{id:'MGS',n:'Mukhyamantri Gyan Sadhna',d:'Merit scholarship for high scorers',amt:20000,r:{c:[9,12],mk:80,inc:600000}},
+{id:'GS',n:'Gyan Setu Scholarship',d:'Merit scholarship for strong performers',amt:15000,r:{c:[9,12],mk:75}},
+{id:'NM',n:'NMMS (Means-cum-Merit)',d:'National means-cum-merit scholarship',amt:12000,r:{c:[9,12],mk:55,inc:350000}},
+{id:'CAT',n:'SC / ST / OBC / Minority Scholarship',d:'Category-wise scholarship',amt:6000,r:{cat:['SC','ST','OBC','Minority'],inc:250000}},
+{id:'BIKE',n:'Saraswati Sadhna (Free Bicycle)',d:'Free bicycle for Class 9 girls',amt:0,r:{g:'F',c:[9,9],att:75}}];
+const FL=['Submitted','School Verification','Forwarded to DEO','Approved','Payment Processing','Benefit Delivered'];
+const ST=['Draft',...FL,'Rejected'];
+const USERS={9000000001:{r:'student',sid:'S1'},9000000002:{r:'student',sid:'S2'},9000000003:{r:'student',sid:'S3'},9000000004:{r:'student',sid:'S4'},9000000005:{r:'student',sid:'S5'},9100000001:{r:'staff',id:'Staff-01',nm:'School Staff 01'},9200000001:{r:'deo',id:'DEO-01',nm:'District Officer 01'},9300000001:{r:'vendor',id:'V01',nm:'Vendor V01 (demo)'},9400000001:{r:'admin',id:'Admin-01',nm:'State Admin 01'}};
+const ROLES=[['student','Student / Parent'],['staff','School staff'],['deo','DEO'],['vendor','Delivery vendor'],['admin','Admin']];
+const ROLEOK={st:['student'],sf:['staff'],de:['deo','admin'],ve:['vendor'],ad:['admin']};
+const ago=m=>new Date(Date.now()-m*60000).toISOString(),fmt=x=>x?new Date(x).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'}):'–';
+function seed(){const D=['Marksheet','Income certificate'];return{n:1006,
+students:[
+{id:'S1',nm:'Anaya Patel',dob:'2011-05-14',g:'F',cls:9,sch:'Sarvodaya High School',dist:'Vadodara',gd:'Meena Patel',mob:'9000000001',cat:'OBC',inc:180000,mk:86,att:92,bank:1,sci:0,docs:[...D,'Caste certificate'],seen:[]},
+{id:'S2',nm:'Riya Solanki',dob:'2009-11-02',g:'F',cls:11,sch:'Kalpana Chawla Vidyalaya',dist:'Surat',gd:'Kiran Solanki',mob:'9000000002',cat:'SC',inc:220000,mk:78,att:88,bank:1,sci:1,docs:[...D,'Caste certificate'],seen:[]},
+{id:'S3',nm:'Kabir Shah',dob:'2010-02-21',g:'M',cls:10,sch:'Ananya Vidyamandir',dist:'Ahmedabad',gd:'Nilesh Shah',mob:'9000000003',cat:'General',inc:900000,mk:91,att:95,bank:1,sci:0,docs:D.slice(),seen:[]},
+{id:'S4',nm:'Meera Desai',dob:'2011-08-09',g:'F',cls:9,sch:'Gandhi Kanya Shala',dist:'Rajkot',gd:'Hasmukh Desai',mob:'9000000004',cat:'ST',inc:140000,mk:64,att:70,bank:0,sci:0,docs:['Marksheet'],seen:[]},
+{id:'S5',nm:'Imran Qureshi',dob:'2008-12-30',g:'M',cls:12,sch:'Navjivan Higher Secondary',dist:'Bharuch',gd:'Salim Qureshi',mob:'9000000005',cat:'Minority',inc:300000,mk:58,att:81,bank:1,sci:1,docs:[...D,'Caste certificate'],seen:[]}],
+rules:JSON.parse(JSON.stringify(SCH.map(s=>s.r))),
+apps:[
+{id:'APP-1001',sid:'S1',sc:'BIKE',st:'Approved',dt:ago(4000),up:ago(600),rs:'',hist:[]},
+{id:'APP-1002',sid:'S2',sc:'CAT',st:'Payment Processing',dt:ago(5000),up:ago(300),rs:'',hist:[]},
+{id:'APP-1003',sid:'S3',sc:'GS',st:'Forwarded to DEO',dt:ago(2000),up:ago(200),rs:'',hist:[]},
+{id:'APP-1004',sid:'S5',sc:'NM',st:'School Verification',dt:ago(900),up:ago(900),rs:'',hist:[]},
+{id:'APP-1005',sid:'S1',sc:'NL',st:'Benefit Delivered',dt:ago(9000),up:ago(2500),rs:'',hist:[]}],
+pay:[{ref:'DBT-90002',aid:'APP-1002',sid:'S2',amt:6000,st:'Processing',dt:''},{ref:'DBT-90005',aid:'APP-1005',sid:'S1',amt:10000,st:'Credited',dt:ago(2500)}],
+dlv:[{id:'DLV-3001',aid:'APP-1001',sid:'S1',v:'V01',st:'Dispatched',otp:'4821',at:'',rc:''}],
+notif:[{sid:'S1',m:'Bicycle dispatched. Delivery ID DLV-3001.',ts:ago(600),rd:0},{sid:'S1',m:'Namo Lakshmi payment credited.',ts:ago(2500),rd:1}],
+audit:[{u:'Admin-01',a:'Seeded demo data',ts:ago(10000),ref:'–'}]}}
+let DB;try{DB=JSON.parse(localStorage.getItem('ekd1'))}catch(e){}if(!DB)DB=seed();
+const save=()=>{try{localStorage.setItem('ekd1',JSON.stringify(DB))}catch(e){}};
+let S={};try{S=JSON.parse(sessionStorage.getItem('ekS')||'{}')}catch(e){}
+let O={role:'student',mob:'9000000001',sent:0},F={d:'',sc:'',s:'',c:'',st:'',q:''},V={id:'',scan:0};
+const sv=()=>{try{sessionStorage.setItem('ekS',JSON.stringify(S))}catch(e){}};
+const sch=id=>SCH.find(s=>s.id==id),stu=id=>DB.students.find(s=>s.id==id),me=()=>stu(S.sid);
+const toast=m=>{const e=$('#toast');e.textContent=m;e.style.display='block';clearTimeout(toast.x);toast.x=setTimeout(()=>e.style.display='none',2800)};
+const log=(u,a,ref)=>DB.audit.unshift({u,a,ts:new Date().toISOString(),ref:ref||'–'});
+const note=(sid,m)=>DB.notif.unshift({sid,m,ts:new Date().toISOString(),rd:0});
+const who=()=>S.u?(S.u.sid||S.u.id):'anon';
+function ev(s,c){const r=DB.rules[SCH.indexOf(c)],w=[];let st='elig';const ok=m=>w.push('✓ '+m),bad=m=>{st='no';w.push('✗ '+m)},mis=m=>{if(st=='elig')st='rev';w.push('? '+m)},inr=n=>'₹'+n.toLocaleString('en-IN');
+if(r.g)s.g==r.g?ok('Gender matches'):bad('Scheme is for '+(r.g=='F'?'girl':'boy')+' students');
+if(r.c)s.cls>=r.c[0]&&s.cls<=r.c[1]?ok('Class '+s.cls+' is within '+r.c[0]+'–'+r.c[1]):bad('Class '+s.cls+' is outside '+r.c[0]+'–'+r.c[1]);
+if(r.inc)s.inc<=r.inc?ok('Income is within '+inr(r.inc)):bad('Income is above '+inr(r.inc));
+if(r.mk)s.mk>=r.mk?ok('Marks are at least '+r.mk+'%'):bad('Marks are below '+r.mk+'%');
+if(r.att)s.att>=r.att?ok('Attendance is at least '+r.att+'%'):bad('Attendance is below '+r.att+'%');
+if(r.cat)r.cat.includes(s.cat)?ok('Category '+s.cat+' is covered'):bad('Category '+s.cat+' is not covered');
+if(r.sci)s.sci?ok('Science stream'):bad('Not in science stream');
+if(!s.bank)mis('Bank verification is pending');
+return{st,w}}
+function reeval(s,say){let n=0;SCH.forEach(c=>{if(ev(s,c).st=='elig'&&!s.seen.includes(c.id)){s.seen.push(c.id);note(s.id,'New eligibility detected: '+c.n);n++}});save();if(say)toast(n?n+' new eligible scheme(s) found':'Eligibility re-checked. No new schemes.')}
+const need=c=>c.id=='CAT'?['Marksheet','Income certificate','Caste certificate']:['Marksheet','Income certificate'];
+function setSt(a,st,rs){const c=sch(a.sc);a.st=st;a.up=new Date().toISOString();if(rs)a.rs=rs;log(who(),'Status → '+st,a.id);
+if(st=='Rejected')note(a.sid,c.n+': application rejected. Reason: '+rs);
+else if(st=='Forwarded to DEO')note(a.sid,c.n+': school verification completed.');
+else if(st=='School Verification')note(a.sid,c.n+': application submitted.');
+else if(st=='Approved'){note(a.sid,c.n+': approved by DEO.');if(a.sc=='BIKE'){DB.dlv.push({id:'DLV-'+DB.n++,aid:a.id,sid:a.sid,v:'V01',st:'Allocated',otp:String(1000+Math.floor(Math.random()*9000)),at:'',rc:''})}else{a.st='Payment Processing';DB.pay.push({ref:'DBT-'+DB.n++,aid:a.id,sid:a.sid,amt:c.amt,st:'Pending',dt:''})}}
+save()}
+const chip=(s,k)=>`<span class="chip c-${k||s}">${h(s)}</span>`;
+const eChip=e=>`<span class="chip c-${e}">${t(e)}</span>`;
+const trk=a=>{const i=a.st=='Rejected'?-1:FL.indexOf(a.st);return`<div class="trk">${FL.map((s,j)=>`<span class="${j<=i?'on':''}">${s}</span>`).join('')}</div>${a.st=='Rejected'?`<span class="chip c-er">Rejected: ${h(a.rs)}</span>`:''}`};
+const bars=o=>{const m=Math.max(1,...Object.values(o));return Object.entries(o).map(([k,v])=>`<div class="bar"><span>${h(k)}</span><i style="width:${v/m*60}%"></i><span>${v}</span></div>`).join('')||'<p class="mu">No data yet.</p>'};
+const sel=(id,opts,v,f)=>`<select ${f?`data-f="${f}"`:''} id="${id}" aria-label="${id}"><option value="">All</option>${opts.map(o=>`<option ${o==v?'selected':''}>${h(o)}</option>`).join('')}</select>`;
+const appRow=a=>{const s=stu(a.sid);return{a,s,c:sch(a.sc)}};
+/* ---------- views ---------- */
+function loginV(){const cr=Object.entries(USERS).map(([m,u])=>`<tr><td>${u.r}</td><td><a href="#" data-a="fill" data-v="${m}">${m}</a></td><td>${u.sid?h(stu(u.sid).nm):h(u.nm)}</td></tr>`).join('');
+return`<div class="wrap lg"><div class="hero"><h1>EkDwar</h1><p class="tag">${t('tag')}</p><p class="mu">One unified window for seven student welfare schemes: a single profile, automatic eligibility checks, school and DEO approval, simulated DBT and QR/OTP bicycle delivery. All data is synthetic.</p></div>
+<div class="card"><h3>Sign in</h3><div class="roles">${ROLES.map(r=>`<button class="b ${O.role==r[0]?'on':''}" data-a="role" data-v="${r[0]}">${r[1]}</button>`).join('')}</div>
+<label for="mob">Mobile number</label><input id="mob" inputmode="numeric" maxlength="10" value="${h(O.mob)}">
+${O.sent?`<label for="otp">OTP</label><input id="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code"><p class="mu">Demo OTP is <b>123456</b>. It is simulated and no SMS is sent.</p><div class="row"><button class="b" data-a="verify">Verify and sign in</button><button class="b s" data-a="send">Resend OTP</button></div>`:`<p></p><button class="b" data-a="send">Send OTP</button>`}
+<h4 style="margin-top:16px">Test accounts</h4><div class="tw"><table><tr><th>Role</th><th>Mobile</th><th>User</th></tr>${cr}</table></div></div></div>`}
+function dashV(s){const R=SCH.map(c=>({c,e:ev(s,c),a:DB.apps.find(a=>a.sid==s.id&&a.sc==c.id&&a.st!='Rejected')}));const mine=DB.apps.filter(a=>a.sid==s.id);
+const un=DB.notif.filter(n=>n.sid==s.id&&!n.rd).length;
+return`<div class="k"><div><b>${SCH.length}</b>${t('ava')}</div><div><b>${R.filter(x=>x.e.st=='elig').length}</b>${t('elig')}</div><div><b>${mine.length}</b>${t('sub')}</div><div><b>${mine.filter(a=>['School Verification','Forwarded to DEO'].includes(a.st)).length}</b>${t('pen')}</div><div><b>${mine.filter(a=>a.st=='Benefit Delivered').length}</b>${t('ben')}</div><div><b>${R.filter(x=>!x.a&&x.e.st=='rev').length+un}</b>${t('act')}</div></div>
+<div class="row" style="margin-bottom:12px"><button class="b t" data-a="st:chk">${t('chk')}</button><small>Rules are illustrative demo rules, not official criteria.</small></div>
+<div class="grid">${R.map(({c,e,a})=>`<div class="card"><div class="row"><b>${c.n}</b></div><p class="mu">${c.d}</p><div class="row">${eChip(e.st)}${a?chip(a.st,a.st=='Rejected'?'er':a.st=='Benefit Delivered'?'ok':'bl'):''}</div>
+<details><summary>${t('why')}</summary>${e.w.map(x=>`<div>${h(x)}</div>`).join('')}<div class="mu">Documents needed: ${need(c).join(', ')}</div></details><p>${a?`<button class="b s" data-a="tab" data-v="a">${t('track')}</button>`:e.st=='elig'?`<button class="b" data-a="st:apply" data-v="${c.id}">${t('apply')}</button> <button class="b s" data-a="st:draft" data-v="${c.id}">Save draft</button>`:e.st=='rev'?`<button class="b s" data-a="tab" data-v="p">Complete profile</button>`:`<button class="b" disabled>${t('apply')}</button>`}</p></div>`).join('')}</div>`}
+function profV(s){const miss=['Marksheet','Income certificate','Caste certificate'].filter(d=>!s.docs.includes(d));
+return`<div class="card"><h3>${h(s.nm)} <small>${s.id}</small></h3><p class="mu">Date of birth ${s.dob}, ${s.g=='F'?'girl':'boy'}. ${h(s.sch)}, ${h(s.dist)}. Guardian ${h(s.gd)}, mobile ••••••${s.mob.slice(-4)}.</p>
+<div class="row"><div><label for="f_cls">Class (9–12)</label><input id="f_cls" type="number" min="9" max="12" value="${s.cls}"></div><div><label for="f_inc">Annual family income (₹)</label><input id="f_inc" type="number" min="0" value="${s.inc}"></div><div><label for="f_mk">Marks (%)</label><input id="f_mk" type="number" min="0" max="100" value="${s.mk}"></div><div><label for="f_att">Attendance (%)</label><input id="f_att" type="number" min="0" max="100" value="${s.att}"></div>
+<div><label for="f_cat">Category</label><select id="f_cat">${['General','OBC','SC','ST','Minority'].map(c=>`<option ${c==s.cat?'selected':''}>${c}</option>`).join('')}</select></div><div><label for="f_sci">Stream</label><select id="f_sci"><option value="0">Not science</option><option value="1" ${s.sci?'selected':''}>Science</option></select></div></div>
+<p><button class="b" data-a="st:prof">${t('save')}</button></p>
+<p>Bank verification (simulated): ${s.bank?chip('Verified','ok'):chip('Pending','wn')+' <button class="b s" data-a="st:bank">Simulate bank verification</button>'}</p>
+<p>Documents (synthetic): ${s.docs.map(d=>chip(d,'ok')).join(' ')||'None'} ${miss.map(d=>`<button class="b s" data-a="st:doc" data-v="${d}">Add ${d}</button>`).join(' ')}</p></div>`}
+function appsV(s){const A=DB.apps.filter(a=>a.sid==s.id);return A.length?A.map(a=>{const p=DB.pay.find(x=>x.aid==a.id);return`<div class="card"><b>${sch(a.sc).n}</b> <small>${a.id}, ${a.st=='Draft'?'saved':'submitted'} ${fmt(a.dt)}, updated ${fmt(a.up)}</small>${trk(a)}${a.st=='Draft'?`<p><button class="b" data-a="st:sub" data-v="${a.id}">Submit application</button></p>`:''}${p?`<p>DBT payment ${chip(p.st,p.st=='Credited'?'ok':p.st=='Failed'?'er':'wn')} ₹${p.amt.toLocaleString('en-IN')} <small>Ref ${p.ref}${p.dt?', '+fmt(p.dt):''}. Simulated PFMS, demo amount.</small></p>`:''}</div>`}).join(''):'<div class="card">No applications yet. Open the dashboard and apply to an eligible scheme.</div>'}
+function bikeV(s){const d=DB.dlv.find(x=>x.sid==s.id);if(!d)return'<div class="card">No bicycle allocated yet. Eligible Class 9 girls can apply to Saraswati Sadhna from the dashboard.</div>';
+const i=['Allocated','Dispatched','Delivered'].indexOf(d.st);
+return`<div class="card"><h3>Bicycle delivery ${d.id}</h3><div class="trk">${['Allocated','Dispatched','Delivered'].map((x,j)=>`<span class="${j<=i?'on':''}">${x}</span>`).join('')}</div><p>Vendor ${d.v}. Application ${d.aid}.</p>
+${d.st=='Delivered'?`<div class="n"><b>Delivery confirmation receipt</b><br>${d.rc}<br>Delivered ${fmt(d.at)} by vendor ${d.v} to student ${d.sid}.</div><button class="b s" data-a="print">Print receipt</button>`:`<p>Show this QR code to the vendor at handover.</p><div class="qr" id="qr" data-t="EKDWAR|${d.id}|${d.sid}"></div><p class="mu">Parent OTP for handover: <b>${d.otp}</b>. Shown here for the demo. In production it would be sent by SMS.</p>`}</div>`}
+function alertV(s){const N=DB.notif.filter(n=>n.sid==s.id);return`<p><button class="b s" data-a="st:read">Mark all read</button></p>`+(N.map(n=>`<div class="n ${n.rd?'':'u'}">${h(n.m)}<br><small>${fmt(n.ts)} ${n.rd?'read':'unread'}. SMS simulated.</small></div>`).join('')||'<div class="card">You have no notifications yet.</div>')}
+function staffV(tab){if(tab=='r'){const A=DB.apps.filter(a=>a.st=='School Verification').map(appRow);return A.length?`<div class="card tw"><table><tr><th>Application</th><th>Student</th><th>Eligibility and documents</th><th>Decision</th></tr>${A.map(({a,s,c})=>{const e=ev(s,c),m=need(c).filter(d=>!s.docs.includes(d));return`<tr><td>${a.id}<br>${c.n}</td><td>${h(s.nm)}<br><small>${s.id}, class ${s.cls}</small></td><td>${eChip(e.st)} ${m.length?`<br><small>Missing: ${m.join(', ')}</small>`:'<br><small>All documents present</small>'}</td><td><input id="rs_${a.id}" placeholder="Reason (needed to reject)" aria-label="Reason"> <button class="b" data-a="sf:fwd" data-v="${a.id}">Verify and forward to DEO</button> <button class="b r" data-a="sf:rej" data-v="${a.id}">Reject</button></td></tr>`}).join('')}</table></div>`:'<div class="card">No applications are waiting for school verification.</div>'}
+if(tab=='s'){const q=(F.q||'').toLowerCase();return`<div class="card"><div class="row"><input id="q" placeholder="Search by student ID or name" value="${h(F.q)}" data-f="q" aria-label="Search"></div><div class="tw"><table><tr><th>ID</th><th>Name</th><th>Class</th><th>School</th><th>Bank</th><th>Docs</th></tr>${DB.students.filter(s=>!q||(s.id+s.nm).toLowerCase().includes(q)).map(s=>`<tr><td>${s.id}</td><td>${h(s.nm)}</td><td>${s.cls}</td><td>${h(s.sch)}</td><td>${s.bank?'Verified':'Pending'}</td><td>${s.docs.length}/3</td></tr>`).join('')}</table></div></div>`}
+return dlvTable()}
+const dlvTable=()=>`<div class="card tw"><table><tr><th>Delivery</th><th>Student</th><th>Vendor</th><th>Status</th><th>Delivered</th></tr>${DB.dlv.map(d=>`<tr><td>${d.id}</td><td>${h(stu(d.sid).nm)}</td><td>${d.v}</td><td>${chip(d.st,d.st=='Delivered'?'ok':'bl')}</td><td>${fmt(d.at)}</td></tr>`).join('')||'<tr><td colspan=5>No bicycles allocated yet.</td></tr>'}</table></div>`;
+function deoV(tab){if(tab=='q'){const A=DB.apps.filter(a=>a.st=='Forwarded to DEO').map(appRow);return A.length?`<div class="card tw"><table><tr><th>Application</th><th>Student</th><th>Eligibility</th><th>Decision</th></tr>${A.map(({a,s,c})=>`<tr><td>${a.id}<br>${c.n}</td><td>${h(s.nm)}<br><small>${h(s.dist)}</small></td><td>${eChip(ev(s,c).st)}</td><td><input id="rs_${a.id}" placeholder="Reason (needed to reject)" aria-label="Reason"> <button class="b" data-a="de:ok" data-v="${a.id}">Approve</button> <button class="b r" data-a="de:rej" data-v="${a.id}">Reject</button></td></tr>`).join('')}</table></div>`:'<div class="card">No applications are waiting for DEO approval.</div>'}
+if(tab=='y')return payV();if(tab=='l')return auditV();return statV()+`<div class="card"><h3>Bicycle distribution</h3>${bars({Allocated:DB.dlv.filter(d=>d.st=='Allocated').length,Dispatched:DB.dlv.filter(d=>d.st=='Dispatched').length,Delivered:DB.dlv.filter(d=>d.st=='Delivered').length})}</div>`}
+const payV=()=>`<div class="card tw"><h3>DBT payments <small>Simulated PFMS. No real transfer happens.</small></h3><table><tr><th>Reference</th><th>Beneficiary</th><th>Scheme</th><th>Amount (demo)</th><th>Bank</th><th>Status</th><th>Date</th></tr>${DB.pay.map(p=>{const s=stu(p.sid),a=DB.apps.find(x=>x.id==p.aid);return`<tr><td>${p.ref}<br><small>${p.aid}</small></td><td>${h(s.nm)}</td><td>${sch(a.sc).n}</td><td>₹${p.amt.toLocaleString('en-IN')}</td><td>${s.bank?'Verified':'Pending'}</td><td><select data-pay="${p.ref}" aria-label="Payment status">${['Pending','Processing','Credited','Failed'].map(x=>`<option ${x==p.st?'selected':''}>${x}</option>`).join('')}</select></td><td>${fmt(p.dt)}</td></tr>`}).join('')||'<tr><td colspan=7>No payments yet.</td></tr>'}</table></div>`;
+const auditV=()=>`<div class="card tw"><h3>Audit log</h3><table><tr><th>User</th><th>Action</th><th>Time</th><th>Reference</th></tr>${DB.audit.slice(0,80).map(x=>`<tr><td>${h(x.u)}</td><td>${h(x.a)}</td><td>${fmt(x.ts)}</td><td>${h(x.ref)}</td></tr>`).join('')}</table></div>`;
+function statV(){const by=(f)=>{const o={};DB.apps.forEach(a=>{const k=f(a);o[k]=(o[k]||0)+1});return o};return`<div class="grid"><div class="card"><h3>Scheme-wise applications</h3>${bars(by(a=>sch(a.sc).id))}</div><div class="card"><h3>District-wise applications</h3>${bars(by(a=>stu(a.sid).dist))}</div><div class="card"><h3>By status</h3>${bars(by(a=>a.st))}</div></div>`}
+function vendV(){if(V.id){const d=DB.dlv.find(x=>x.id==V.id);if(d){const s=stu(d.sid);return`<div class="card"><button class="b s" data-a="ve:back">Back to list</button><h3>${d.id} for ${h(s.nm)} <small>${s.id}</small></h3><p>${chip(d.st,d.st=='Delivered'?'ok':'bl')}</p>
+${d.st=='Delivered'?`<div class="n"><b>Delivery confirmation receipt</b><br>${d.rc}<br>Delivered ${fmt(d.at)} by vendor ${d.v} to student ${d.sid}.</div><button class="b s" data-a="print">Print receipt</button>`:`<p>Step 1. Scan the student QR code with the camera, or use manual verify if the camera is unavailable.</p><div class="row"><div class="qr" id="qr" data-t="EKDWAR|${d.id}|${d.sid}"></div><div><button class="b t" data-a="ve:cam">Scan with camera</button> <button class="b s" data-a="ve:scan">${V.scan?'QR verified ✓':'Manual verify'}</button><video id="cam" playsinline muted style="display:none;width:240px;border-radius:8px;margin-top:8px"></video><p class="mu">${V.scan?'Payload matches delivery '+d.id+'.':''}</p></div></div>
+<label for="otp">Step 2. Enter parent OTP (4 digits)</label><input id="otp" inputmode="numeric" maxlength="4"><p><button class="b" data-a="ve:ok">Confirm handover</button></p>`}</div>`}}
+const q=(F.q||'').toLowerCase();return`<div class="card"><div class="row"><input id="q" placeholder="Search by delivery ID" value="${h(F.q)}" data-f="q" aria-label="Search delivery"></div><div class="tw"><table><tr><th>Delivery</th><th>Student</th><th>Status</th><th>Action</th></tr>${DB.dlv.filter(d=>d.v==S.u.id&&(!q||d.id.toLowerCase().includes(q))).map(d=>`<tr><td>${d.id}</td><td>${h(stu(d.sid).nm)}</td><td>${chip(d.st,d.st=='Delivered'?'ok':'bl')}</td><td>${d.st=='Allocated'?`<button class="b" data-a="ve:disp" data-v="${d.id}">Mark dispatched</button>`:`<button class="b s" data-a="ve:open" data-v="${d.id}">${d.st=='Delivered'?'View receipt':'Verify delivery'}</button>`}</td></tr>`).join('')||'<tr><td colspan=4>No deliveries match.</td></tr>'}</table></div></div>`}
+function adminV(tab){const S_=DB.students,A=DB.apps;
+if(tab=='o')return`<div class="k"><div><b>${S_.length}</b>Registered students</div><div><b>${S_.filter(s=>SCH.some(c=>ev(s,c).st=='elig')).length}</b>Eligible students</div><div><b>${A.length}</b>Applications</div><div><b>${A.filter(a=>['Approved','Payment Processing','Benefit Delivered'].includes(a.st)).length}</b>Approved</div><div><b>${A.filter(a=>['School Verification','Forwarded to DEO'].includes(a.st)).length}</b>Pending</div><div><b>${A.filter(a=>a.st=='Rejected').length}</b>Rejected</div><div><b>${DB.pay.filter(p=>p.st=='Credited').length}</b>DBT beneficiaries</div><div><b>${DB.dlv.length}</b>Bicycles allocated</div><div><b>${DB.dlv.filter(d=>d.st=='Delivered').length}</b>Bicycles delivered</div></div>`+statV()+`<p><button class="b r" data-a="ad:reset">Reset demo data</button></p>`;
+if(tab=='a'){const rows=A.map(appRow).filter(({a,s,c})=>(!F.d||s.dist==F.d)&&(!F.s||s.sch==F.s)&&(!F.sc||c.id==F.sc)&&(!F.c||s.cls==F.c)&&(!F.st||a.st==F.st)&&(!F.q||(a.id+s.nm+s.id).toLowerCase().includes(F.q.toLowerCase())));
+return`<div class="card"><div class="row"><div>District ${sel('fd',[...new Set(S_.map(s=>s.dist))],F.d,'d')}</div><div>School ${sel('fs',[...new Set(S_.map(s=>s.sch))],F.s,'s')}</div><div>Scheme ${sel('fsc',SCH.map(c=>c.id),F.sc,'sc')}</div><div>Class ${sel('fc',[9,10,11,12],F.c,'c')}</div><div>Status ${sel('fst',ST,F.st,'st')}</div><div>Search <input id="q" value="${h(F.q)}" data-f="q" placeholder="ID or name" aria-label="Search"></div></div></div><div class="card tw"><table><tr><th>Application</th><th>Student</th><th>Scheme</th><th>Status</th><th>Updated</th><th>Override</th></tr>${rows.map(({a,s,c})=>`<tr><td>${a.id}</td><td>${h(s.nm)}<br><small>${h(s.dist)}, class ${s.cls}</small></td><td>${c.id}</td><td>${chip(a.st,a.st=='Rejected'?'er':a.st=='Benefit Delivered'?'ok':'bl')}</td><td>${fmt(a.up)}</td><td><select data-ov="${a.id}" aria-label="Set status">${ST.map(x=>`<option ${x==a.st?'selected':''}>${x}</option>`).join('')}</select></td></tr>`).join('')||'<tr><td colspan=6>No applications match these filters. Clear a filter to see more.</td></tr>'}</table></div>`}
+if(tab=='y')return payV();if(tab=='l')return auditV();
+return`<div class="card tw"><h3>Eligibility rules <small>Illustrative demo values. Edit them and students are re-checked.</small></h3><table><tr><th>Scheme</th><th>Max income (₹)</th><th>Min marks (%)</th><th>Min attendance (%)</th></tr>${SCH.map((c,i)=>{const r=DB.rules[i];return`<tr><td>${c.n}</td>${['inc','mk','att'].map(k=>`<td>${k in r?`<input type="number" min="0" value="${r[k]}" data-rule="${i}:${k}" aria-label="${c.id} ${k}" style="width:110px">`:'–'}</td>`).join('')}</tr>`}).join('')}</table></div>`}
+const TABS={student:[['d','dash'],['p','prof'],['a','apps'],['b','cyc'],['n','alerts']],staff:[['r','Review'],['s','Students'],['b','Bicycles']],deo:[['q','Queue'],['y','Payments'],['t','Stats'],['l','Audit']],vendor:[['v','Deliveries']],admin:[['o','Overview'],['a','Applications'],['y','Payments'],['r','Rules'],['l','Audit']]};
+function R(){const u=S.u,app=$('#app');let body='',tabs='';
+const top=`<div class="top"><b>EkDwar</b><span class="demo">Simulated integrations</span><span class="mu" style="color:#bcd">SFIC 2026, Education Department, Government of Gujarat, SSIP 2.0</span><span class="sp"></span><button class="${L=='en'?'on':''}" data-a="lang" data-v="en">EN</button><button class="${L=='gu'?'on':''}" data-a="lang" data-v="gu">ગુજરાતી</button>${u?`<span>${h(u.sid?stu(u.sid).nm:u.nm)}</span><button data-a="out">${t('out')}</button>`:''}</div>`;
+const foot=`<div class="wrap"><small>Integrations with CTS, Aadhaar, DigiLocker and PFMS are simulated. Real use needs departmental approval, credentials and API access. Eligibility rules are illustrative, not official.</small></div>`;
+if(!u){app.innerHTML=top+loginV()+foot;return}
+const r=u.r,tl=TABS[r];if(!tl.some(x=>x[0]==S.t))S.t=tl[0][0];
+tabs=`<div class="tabs" role="tablist">${tl.map(x=>`<button class="${S.t==x[0]?'on':''}" data-a="tab" data-v="${x[0]}">${t(x[1])}</button>`).join('')}</div>`;
+const s=u.sid?me():null,k=S.t;
+if(r=='student')body={d:()=>`<h2>${t('welcome')}, ${h(s.nm)}</h2>`+dashV(s),p:()=>profV(s),a:()=>appsV(s),b:()=>bikeV(s),n:()=>alertV(s)}[k]();
+else if(r=='staff')body=staffV(k);else if(r=='deo')body=deoV(k);else if(r=='vendor')body=vendV();else body=adminV(k);
+app.innerHTML=top+`<div class="wrap">${tabs}${body}</div>`+foot;
+document.querySelectorAll('[data-t]').forEach(e=>{if(window.QRCode)new QRCode(e,{text:e.dataset.t,width:140,height:140});else e.textContent=e.dataset.t})}
+/* ---------- actions ---------- */
+function act(a,v){const p=a.split(':')[0];if(ROLEOK[p]&&(!S.u||!ROLEOK[p].includes(S.u.r)))return toast('Not permitted for this role');
+const val=id=>{const e=$('#'+id);return e?e.value.trim():''},app=id=>DB.apps.find(x=>x.id==id);
+switch(a){
+case'lang':L=v;break;case'tab':S.t=v;sv();break;
+case'role':O.role=v;O.sent=0;O.mob=Object.keys(USERS).find(m=>USERS[m].r==v);break;
+case'fill':O.mob=v;O.role=USERS[v].r;break;
+case'send':O.mob=val('mob')||O.mob;if(!/^\d{10}$/.test(O.mob))return toast('Enter a 10-digit mobile number');O.sent=1;toast('Demo OTP 123456 sent (simulated)');break;
+case'verify':{const m=O.mob,u=USERS[m];if(!u||u.r!=O.role){toast('This number is not registered for the selected role');return}if(val('otp')!=='123456'){toast('Wrong OTP. Use the demo OTP 123456');return}
+S={u,sid:u.sid,t:''};sv();log(u.sid||u.id,'Login',u.sid||u.id);if(u.sid)reeval(stu(u.sid));O.sent=0;break}
+case'out':log(who(),'Logout');S={};sv();save();break;
+case'st:chk':reeval(me(),1);log(who(),'Eligibility check',S.sid);break;
+case'st:apply':{const s=me(),c=sch(v);if(ev(s,c).st!='elig')return toast('Not eligible for this scheme');if(DB.apps.some(x=>x.sid==s.id&&x.sc==v&&x.st!='Rejected'))return toast('Already applied');
+const x={id:'APP-'+DB.n++,sid:s.id,sc:v,st:'Submitted',dt:new Date().toISOString(),up:'',rs:'',hist:[]};DB.apps.push(x);log(s.id,'Application submitted',x.id);setSt(x,'School Verification');toast('Application '+x.id+' submitted to school');break}
+case'st:draft':{const s=me();if(ev(s,sch(v)).st!='elig')return toast('Not eligible for this scheme');if(DB.apps.some(x=>x.sid==s.id&&x.sc==v&&x.st!='Rejected'))return toast('Already started');const x={id:'APP-'+DB.n++,sid:s.id,sc:v,st:'Draft',dt:new Date().toISOString(),up:new Date().toISOString(),rs:'',hist:[]};DB.apps.push(x);log(s.id,'Draft saved',x.id);save();toast('Draft '+x.id+' saved. Submit it from Applications');break}
+case'st:sub':{const x=app(v);if(!x||x.sid!=S.sid||x.st!='Draft')return;const s=me();if(ev(s,sch(x.sc)).st!='elig')return toast('Profile no longer meets the rules. Update it first');x.dt=new Date().toISOString();log(s.id,'Application submitted',x.id);setSt(x,'School Verification');toast('Application '+x.id+' submitted to school');break}
+case'st:prof':{const s=me(),g=id=>Number(val(id)),c=g('f_cls'),i=g('f_inc'),m=g('f_mk'),at=g('f_att');
+if(!(c>=9&&c<=12)||!(i>=0)||!(m>=0&&m<=100)||!(at>=0&&at<=100))return toast('Check values: class 9–12, marks and attendance 0–100, income 0 or more');
+Object.assign(s,{cls:c,inc:i,mk:m,att:at,cat:val('f_cat'),sci:Number(val('f_sci'))});log(s.id,'Profile updated',s.id);reeval(s,1);break}
+case'st:bank':me().bank=1;log(S.sid,'Bank verified (simulated)',S.sid);reeval(me(),1);break;
+case'st:doc':me().docs.push(v);log(S.sid,'Document added',S.sid);save();toast(v+' added');break;
+case'st:read':DB.notif.forEach(n=>{if(n.sid==S.sid)n.rd=1});save();break;
+case'sf:fwd':setSt(app(v),'Forwarded to DEO');log(who(),'School verification',v);toast('Forwarded to DEO');break;
+case'sf:rej':case'de:rej':{const r=val('rs_'+v);if(!r)return toast('Enter a rejection reason first');setSt(app(v),'Rejected',r);toast('Application rejected');break}
+case'de:ok':setSt(app(v),'Approved');log(who(),'DEO approval',v);toast('Approved');break;
+case've:disp':{const d=DB.dlv.find(x=>x.id==v);d.st='Dispatched';note(d.sid,'Bicycle dispatched. Delivery ID '+d.id+'.');log(who(),'Bicycle dispatched',d.id);save();break}
+case've:open':V={id:v,scan:0};break;case've:back':V={id:'',scan:0};break;
+case've:cam':{if(!window.BarcodeDetector||!navigator.mediaDevices)return toast('Camera scanning is not supported in this browser. Use manual verify');const d=DB.dlv.find(x=>x.id==V.id),vd=$('#cam');navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}).then(m=>{vd.style.display='block';vd.srcObject=m;vd.play();const bd=new BarcodeDetector({formats:['qr_code']}),tick=()=>{if(!vd.srcObject)return;bd.detect(vd).then(r=>{if(r.length&&r[0].rawValue==='EKDWAR|'+d.id+'|'+d.sid){m.getTracks().forEach(x=>x.stop());vd.srcObject=null;V.scan=1;log(who(),'QR scanned (camera)',d.id);R()}else setTimeout(tick,300)}).catch(()=>setTimeout(tick,300))};tick()}).catch(()=>toast('Camera permission denied. Use manual verify'));return}
+case've:scan':V.scan=1;log(who(),'QR scanned (simulated)',V.id);break;
+case've:ok':{const d=DB.dlv.find(x=>x.id==V.id);if(!V.scan)return toast('Scan the QR code first');if(val('otp')!==d.otp)return toast('Incorrect parent OTP');
+d.st='Delivered';d.at=new Date().toISOString();d.rc='RCPT-'+d.id.slice(4);setSt(app(d.aid),'Benefit Delivered');note(d.sid,'Bicycle delivered. Receipt '+d.rc+'.');log(who(),'Bicycle delivery verified',d.id);toast('Handover confirmed');break}
+case'ad:reset':DB=seed();save();S.t='o';toast('Demo data reset');break;
+case'print':window.print();return}
+R()}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b){e.preventDefault();act(b.dataset.a,b.dataset.v)}});
+document.addEventListener('change',e=>{const g=e.target,d=g.dataset;
+if(d.f){F[d.f]=g.value;R();if(d.f=='q'){const i=$('#q');i&&i.focus()}}
+else if(d.pay){const p=DB.pay.find(x=>x.ref==d.pay);if(!S.u||!['deo','admin'].includes(S.u.r))return;const s=stu(p.sid);
+if(g.value=='Credited'&&!s.bank){toast('Bank verification is pending. Cannot credit.');R();return}
+p.st=g.value;p.dt=g.value=='Credited'?new Date().toISOString():p.dt;log(who(),'Payment status → '+p.st,p.ref);
+if(p.st=='Credited'){const a=DB.apps.find(x=>x.id==p.aid);setSt(a,'Benefit Delivered');note(p.sid,'Payment credited: ₹'+p.amt.toLocaleString('en-IN')+' ('+p.ref+')')}save();toast('Payment '+p.st);R()}
+else if(d.ov){if(!S.u||S.u.r!='admin')return;const a=DB.apps.find(x=>x.id==d.ov);if(g.value=='Rejected'){a.rs='Set by admin';}setSt(a,g.value,a.rs);toast('Status updated');R()}
+else if(d.rule){const[i,k]=d.rule.split(':'),n=Number(g.value);if(!(n>=0))return toast('Enter a number');DB.rules[i][k]=n;log(who(),'Rule edited: '+SCH[i].id+' '+k);DB.students.forEach(s=>reeval(s));toast('Rule saved. Students re-checked.')}});
+let LA=Date.now();['click','keydown'].forEach(k=>document.addEventListener(k,()=>LA=Date.now()));
+setInterval(()=>{if(S.u&&Date.now()-LA>9e5){S={};sv();toast('Signed out after 15 minutes of inactivity');R()}},30000);
+R();
+</script></body></html>
